@@ -166,7 +166,8 @@ def ComputeSentiment(filefolder,filename):
         PositiveDict=LoadPositiveDict()
         NegativeDict=LoadNegativeDict()
         for each in resultlist1:
-            if 1>0:
+            #if 1 > 0:
+            try:
                 val=each.split('/')
                 if val[0].strip() in PositiveDict:
                     Positive_Value=Positive_Value + abs(PositiveDict[val[0].strip()])
@@ -177,7 +178,7 @@ def ComputeSentiment(filefolder,filename):
                     TotalCount += 1
                     #print("Negative_Value is ......................... "+str(Negative_Value)+" -----"+str(val[0]))
 
-            else:
+            except:
                 continue
 
         if TotalCount>0:
@@ -313,7 +314,10 @@ for eachfolder in folders:
     print("------------------------------------------------------------------>>>")
     with open(os.path.join(os.getcwd(),eachfolder+"_M2.txt"),'w')as fout2:
         for (k,v) in dict_name.items():
-            fout2.write(k+'\t\t'+v+'\t\t'+str(sentiment_value[k])+'\n')
+            try:
+                fout2.write(k+'\t\t'+v+'\t\t'+str(sentiment_value[k])+'\n')
+            except:
+                continue
 
 end=time.clock()
 print("The total time is "+str(end-start)+" secs...")
